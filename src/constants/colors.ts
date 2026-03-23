@@ -1,0 +1,31 @@
+export const COLORS = {
+  red: {
+    primary: '#EF4444',
+    light: '#FCA5A5',
+    dark: '#DC2626',
+    bg: '#FEF2F2',
+  },
+  blue: {
+    primary: '#3B82F6',
+    light: '#93C5FD',
+    dark: '#2563EB',
+    bg: '#EFF6FF',
+  },
+  background: '#1A1A2E',
+  surface: '#16213E',
+  surfaceLight: '#0F3460',
+  text: '#EAEAEA',
+  textSecondary: '#A0A0A0',
+  accent: '#E94560',
+  gold: '#FFD700',
+  cellEmpty: '#2D2D44',
+  cellBorder: '#3D3D5C',
+  validHighlight: '#FBBF24',
+  themes: {
+    default: { bg: '#1A1A2E', cell: '#2D2D44' },
+    neon: { bg: '#0D0D0D', cell: '#1A1A1A' },
+    pastel: { bg: '#FFF5E6', cell: '#FFE4C9' },
+    earth: { bg: '#2C1A0E', cell: '#3D2B1F' },
+    monochrome: { bg: '#1A1A1A', cell: '#333333' },
+  },
+} as const;
