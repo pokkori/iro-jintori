@@ -21,22 +21,20 @@ export default function GameOverModal({
   const won = result.winner === playerColor;
   const isDraw = result.winner === null;
   const title = isDraw ? '引き分け' : won ? '勝利！' : '敗北...';
-  const emoji = isDraw ? '🤝' : won ? '🎉' : '😤';
 
   return (
     <Modal visible={visible} transparent animationType="fade">
       <View style={styles.overlay}>
         <View style={styles.modal}>
-          <Text style={styles.emoji}>{emoji}</Text>
           <Text style={styles.title}>{title}</Text>
 
           <View style={styles.stats}>
             <View style={styles.statRow}>
-              <Text style={[styles.statLabel, { color: COLORS.red.primary }]}>🔴 赤</Text>
+              <Text style={[styles.statLabel, { color: COLORS.red.primary }]}>赤</Text>
               <Text style={styles.statValue}>{result.redCount}マス</Text>
             </View>
             <View style={styles.statRow}>
-              <Text style={[styles.statLabel, { color: COLORS.blue.primary }]}>🔵 青</Text>
+              <Text style={[styles.statLabel, { color: COLORS.blue.primary }]}>青</Text>
               <Text style={styles.statValue}>{result.blueCount}マス</Text>
             </View>
             <View style={styles.statRow}>
@@ -52,15 +50,21 @@ export default function GameOverModal({
               <Text style={styles.statValue}>{result.totalTurns}</Text>
             </View>
             {result.hadComeback && (
-              <Text style={styles.comeback}>🔥 逆転勝利！</Text>
+              <Text style={styles.comeback}>逆転勝利！</Text>
             )}
           </View>
 
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.buttonPrimary} onPress={onPlayAgain}>
+            <TouchableOpacity style={styles.buttonPrimary} onPress={onPlayAgain}
+              accessibilityLabel="もう1回"
+              accessibilityRole="button"
+            >
               <Text style={styles.buttonText}>もう1回</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonSecondary} onPress={onGoHome}>
+            <TouchableOpacity style={styles.buttonSecondary} onPress={onGoHome}
+              accessibilityLabel="メニューに戻る"
+              accessibilityRole="button"
+            >
               <Text style={styles.buttonText}>メニューに戻る</Text>
             </TouchableOpacity>
           </View>

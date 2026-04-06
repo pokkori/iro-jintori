@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Alert } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Dimensions, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS } from '../src/constants/colors';
 import { generateDailyPuzzle } from '../src/engine/daily-generator';
 import { getTodayString } from '../src/utils/date';
@@ -100,18 +101,22 @@ export default function DailyScreen() {
   const stars = '★'.repeat(puzzle.difficulty) + '☆'.repeat(5 - puzzle.difficulty);
 
   return (
+    <LinearGradient colors={['#0F0F1A', '#1A0A2E', '#2D1B4E']} style={{ flex: 1 }}>
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <Pressable onPress={() => router.back()}
+          accessibilityLabel="戻る"
+          accessibilityRole="button"
+        >
           <Text style={styles.backButton}>← 戻る</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.title}>今日の詰め陣取り</Text>
         <View style={{ width: 50 }} />
       </View>
 
       <View style={styles.infoRow}>
         <Text style={styles.streak}>
-          🔥 連続 {playerStore.profile.dailyStreak}日
+          連続 {playerStore.profile.dailyStreak}日
         </Text>
         <Text style={styles.difficulty}>{stars} (難易度{puzzle.difficulty})</Text>
       </View>
@@ -132,39 +137,49 @@ export default function DailyScreen() {
           残り手数: {'●'.repeat(puzzle.maxMoves - movesUsed)}{'○'.repeat(movesUsed)}
         </Text>
         <Text style={styles.statusText}>
-          🔴{board.redCount} vs 🔵{board.blueCount}
+          赤:{board.redCount} vs 青:{board.blueCount}
         </Text>
       </View>
 
       {cleared ? (
         <View style={styles.clearBanner}>
-          <Text style={styles.clearText}>🎉 クリア！</Text>
-          <TouchableOpacity style={styles.actionButton} onPress={() => router.back()}>
+          <Text style={styles.clearText}>クリア！</Text>
+          <Pressable style={styles.actionButton} onPress={() => router.back()}
+            accessibilityLabel="戻る"
+            accessibilityRole="button"
+          >
             <Text style={styles.actionButtonText}>メニューに戻る</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       ) : (
         <>
           <View style={styles.rotationRow}>
-            <TouchableOpacity
+            <Pressable
               style={styles.rotateButton}
               onPress={() => setRotation((rotation - 60 + 360) % 360)}
+              accessibilityLabel="← 回転"
+              accessibilityRole="button"
             >
               <Text style={styles.rotateText}>← 回転</Text>
-            </TouchableOpacity>
+            </Pressable>
             {!showHint ? (
-              <TouchableOpacity onPress={() => setShowHint(true)}>
-                <Text style={styles.hintButton}>💡 ヒント</Text>
-              </TouchableOpacity>
+              <Pressable onPress={() => setShowHint(true)}
+                accessibilityLabel="ヒント"
+                accessibilityRole="button"
+              >
+                <Text style={styles.hintButton}>ヒント</Text>
+              </Pressable>
             ) : (
               <Text style={styles.hintText}>{puzzle.hint}</Text>
             )}
-            <TouchableOpacity
+            <Pressable
               style={styles.rotateButton}
               onPress={() => setRotation((rotation + 60) % 360)}
+              accessibilityLabel="回転 →"
+              accessibilityRole="button"
             >
               <Text style={styles.rotateText}>回転 →</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
 
           <BlockSelector
@@ -173,19 +188,23 @@ export default function DailyScreen() {
             onSelect={(id) => { setSelectedBlock(id); setRotation(0); }}
           />
 
-          <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
-            <Text style={styles.resetText}>🔄 リセット</Text>
-          </TouchableOpacity>
+          <Pressable style={styles.resetButton} onPress={handleReset}
+            accessibilityLabel="リセット"
+            accessibilityRole="button"
+          >
+            <Text style={styles.resetText}>リセット</Text>
+          </Pressable>
         </>
       )}
     </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    
   },
   header: {
     flexDirection: 'row',

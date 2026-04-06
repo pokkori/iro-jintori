@@ -12,13 +12,13 @@ interface TurnIndicatorProps {
 export default function TurnIndicator({ currentPlayer, phase }: TurnIndicatorProps) {
   let message = '';
   if (phase === 'selecting_block') {
-    message = `${currentPlayer === 'red' ? '🔴 赤' : '🔵 青'}のターン - ブロックを選択`;
+    message = `${currentPlayer === 'red' ? '赤' : '青'}のターン - ブロックを選択`;
   } else if (phase === 'placing_block') {
     message = `配置場所をタップ`;
   } else if (phase === 'animating_capture') {
     message = `反転中...`;
   } else if (phase === 'ai_thinking') {
-    message = `🤖 AI思考中...`;
+    message = `AI思考中...`;
   } else if (phase === 'game_over') {
     message = `ゲーム終了`;
   }

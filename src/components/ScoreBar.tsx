@@ -20,12 +20,12 @@ export default function ScoreBar({ redCount, blueCount, turnNumber, elapsedSecon
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
-        <Text style={styles.redScore}>🔴 {redCount}</Text>
+        <Text style={styles.redScore}>赤 {redCount}</Text>
         <View style={styles.barContainer}>
           <View style={[styles.barRed, { width: `${redPercent}%` }]} />
           <View style={[styles.barBlue, { width: `${100 - redPercent}%` }]} />
         </View>
-        <Text style={styles.blueScore}>{blueCount} 🔵</Text>
+        <Text style={styles.blueScore}>{blueCount} 青</Text>
       </View>
       <View style={styles.bottomRow}>
         <Text style={styles.info}>Turn {turnNumber}</Text>
