@@ -2,7 +2,8 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { TouchableOpacity } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Pressable } from 'react-native';
 import Svg, { Polygon } from 'react-native-svg';
 import { ALL_BLOCKS } from '../src/constants/blocks';
 import { COLORS } from '../src/constants/colors';
@@ -48,7 +49,7 @@ function BlockCard({ block, unlocked }: { block: BlockShape; unlocked: boolean }
         })}
       </Svg>
       <Text style={[styles.cardName, !unlocked && styles.cardLocked]}>
-        {unlocked ? block.name : '🔒'}
+        {unlocked ? block.name : '---'}
       </Text>
       <Text style={styles.cardSize}>{block.size}マス</Text>
       {!unlocked && (
@@ -73,11 +74,15 @@ export default function CollectionScreen() {
   const tier2Blocks = ALL_BLOCKS.filter(b => b.unlockWins > 12);
 
   return (
+    <LinearGradient colors={['#0F0F1A', '#1A0A2E', '#2D1B4E']} style={{ flex: 1 }}>
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <Pressable onPress={() => router.back()}
+          accessibilityLabel="戻る"
+          accessibilityRole="button"
+        >
           <Text style={styles.backButton}>← 戻る</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={styles.title}>ブロック図鑑</Text>
         <View style={{ width: 50 }} />
       </View>
@@ -128,13 +133,14 @@ export default function CollectionScreen() {
         <View style={{ height: 40 }} />
       </ScrollView>
     </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    
   },
   header: {
     flexDirection: 'row',
